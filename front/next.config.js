@@ -5,6 +5,9 @@ module.exports = withTM()
 
 const nextConfig = {
   reactStrictMode: true,
+  compiler: {
+    styledComponents: true,
+  },
 }
 
 

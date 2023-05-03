@@ -1,11 +1,10 @@
+import CarouselContainer from "@/components/Carousel";
 import ObjViewer from "@/components/ObjViewer";
 import PageLayout from "@/components/PageLayout";
 import { promises as fs } from 'fs';
-import CarouselContainer from "@/components/Carousel";
 import type { GetStaticProps, InferGetStaticPropsType } from 'next';
 import path from "path";
-import styled from 'styled-components'
-import Title from "antd/es/typography/Title";
+import styled from 'styled-components';
 
 
 export async function getStaticPaths() {
@@ -15,7 +14,7 @@ export async function getStaticPaths() {
       { params: { obj: 'sword' } }
     ],
     fallback: false
-  };
+  }
 }
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
@@ -25,15 +24,18 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
   if (params && params.obj) {
     const queryName = typeof (params.obj) === "object" ? params.obj[0] : params.obj
-    const files = filenames.filter(file => file.includes(queryName)).map(file => path.join('/', file))
+    let files = filenames.filter(file => file.includes(queryName)).map(file => path.join('/', file))
     return {
-      props: { mtlFilePath: files[0], objFilePath: files[1], obj: queryName }, // will be passed to the page component as props
+      props: {
+        mtlFilePath: files.filter(file => file.includes('.mtl')).map(file => path.join('/', file))[0],
+        objFilePath: files.filter(file => file.includes('.obj')).map(file => path.join('/', file))[0],
+        obj: queryName
+      },
     }
   }
   return {
     notFound: true
   }
-
 }
 
 function ObjPage({ mtlFilePath, objFilePath, obj }: InferGetStaticPropsType<typeof getStaticProps>) {
@@ -42,16 +44,17 @@ function ObjPage({ mtlFilePath, objFilePath, obj }: InferGetStaticPropsType<type
     <PageLayout>
       <ObjPageContainer>
         <HeaderContainer>
-          <Title>{obj.toUpperCase()}</Title>
+          <h1>{obj.toUpperCase()}</h1>
+          {/* <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde eius quisquam tenetur delectus nemo ullam aut, iusto quo dolorum reprehenderit dicta ipsam iure quod quasi totam vitae doloribus voluptates pariatur!</p>
           <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde eius quisquam tenetur delectus nemo ullam aut, iusto quo dolorum reprehenderit dicta ipsam iure quod quasi totam vitae doloribus voluptates pariatur!</p>
           <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde eius quisquam tenetur delectus nemo ullam aut, iusto quo dolorum reprehenderit dicta ipsam iure quod quasi totam vitae doloribus voluptates pariatur!</p>
           <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde eius quisquam tenetur delectus nemo ullam aut, iusto quo dolorum reprehenderit dicta ipsam iure quod quasi totam vitae doloribus voluptates pariatur!</p>
           <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde eius quisquam tenetur delectus nemo ullam aut, iusto quo dolorum reprehenderit dicta ipsam iure quod quasi totam vitae doloribus voluptates pariatur!</p>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde eius quisquam tenetur delectus nemo ullam aut, iusto quo dolorum reprehenderit dicta ipsam iure quod quasi totam vitae doloribus voluptates pariatur!</p>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde eius quisquam tenetur delectus nemo ullam aut, iusto quo dolorum reprehenderit dicta ipsam iure quod quasi totam vitae doloribus voluptates pariatur!</p>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde eius quisquam tenetur delectus nemo ullam aut, iusto quo dolorum reprehenderit dicta ipsam iure quod quasi totam vitae doloribus voluptates pariatur!</p> */}
         </HeaderContainer>
-        <br/>
+        <br />
         <ObjViewer mtlFilePath={mtlFilePath} objFilePath={objFilePath} />
+        <br />
         <CarouselContainer />
       </ObjPageContainer>
     </PageLayout>
