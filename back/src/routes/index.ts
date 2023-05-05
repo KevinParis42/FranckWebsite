@@ -1,17 +1,9 @@
-import express, {Request, Response} from 'express'
-import User from '../db/models/user.model';
+import express from 'express'
+import projectRouter from './project.router'
 
-let router = express.Router();
+const router = express.Router()
 
-router.use('/users', async (req: Request, res: Response) => {
-    const users = await User.findAll()
-    res.json(users)
-})
-
-router.use('/', async (req: Request, res: Response) => {
-    const created = await User.create({firstName: 'firstname', lastName: 'lastname'})
-    res.json(created)
-})
+router.use('/project', projectRouter)
 
 
 export default router

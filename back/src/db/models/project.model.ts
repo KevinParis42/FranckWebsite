@@ -1,4 +1,4 @@
-import { Table, Column, Model } from 'sequelize-typescript';
+import { Table, Column, Model, DataType } from 'sequelize-typescript';
 
 @Table
 export default class Project extends Model {
@@ -7,4 +7,7 @@ export default class Project extends Model {
 
     @Column
     description: string;
+
+    @Column
+    filepath: string;
 }

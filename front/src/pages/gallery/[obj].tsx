@@ -19,6 +19,8 @@ export async function getStaticPaths() {
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
 
+  const options = { method: 'GET' };
+
   const publicDirectory = path.join(process.cwd(), 'public')
   const filenames = await fs.readdir(publicDirectory)
 
