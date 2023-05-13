@@ -4,7 +4,7 @@ const withTM = require('next-transpile-modules')(['three'])
 module.exports = withTM()
 
 const nextConfig = {
-  reactStrictMode: true,
+  reactStrictMode: false,
   compiler: {
     styledComponents: true,
   },

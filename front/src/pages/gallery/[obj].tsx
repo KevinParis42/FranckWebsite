@@ -19,18 +19,10 @@ export async function getStaticPaths() {
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
 
-  const options = { method: 'GET' };
-
-  const publicDirectory = path.join(process.cwd(), 'public')
-  const filenames = await fs.readdir(publicDirectory)
-
   if (params && params.obj) {
     const queryName = typeof (params.obj) === "object" ? params.obj[0] : params.obj
-    let files = filenames.filter(file => file.includes(queryName)).map(file => path.join('/', file))
     return {
       props: {
-        mtlFilePath: files.filter(file => file.includes('.mtl')).map(file => path.join('/', file))[0],
-        objFilePath: files.filter(file => file.includes('.obj')).map(file => path.join('/', file))[0],
         obj: queryName
       },
     }
