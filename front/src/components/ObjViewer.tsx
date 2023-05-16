@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import CanvasContainer from './CanvasContainer';
 import DirectionnalLightContainer from './DirectionnalLightContainer';
 
-const ObjViewer: React.FC<{ mtlFilePath: string, objFilePath: string }> = ({ mtlFilePath, objFilePath }) => {
+const ObjViewer: React.FC<{ mtlFilePath: string, objFilePath: Blob }> = ({ mtlFilePath, objFilePath }) => {
 
     const [directionnalLightX, setDirectionnalLightX] = useState<number>(0)
     const [directionnalLightZ, setDirectionnalLightZ] = useState<number>(1)
@@ -19,31 +19,24 @@ const ObjViewer: React.FC<{ mtlFilePath: string, objFilePath: string }> = ({ mtl
         <>
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                 <div style={{ height: '40vh', width: '40vw', border: 'solid white' }}>
-                    <CanvasContainer
-                        mtlFilePath={mtlFilePath}
-                        objFilePath={objFilePath}
-                        directionnalLightX={directionnalLightX}
-                        directionnalLightY={directionnalLightY}
-                        directionnalLightZ={directionnalLightZ}
-                        ambiantLightIntensity={ambiantLightIntensity}
-                    />
+                    <CanvasContainer />
                 </div>
                 <div id="control-container">
-                    <DirectionnalLightContainer
+                    {/* <DirectionnalLightContainer
                         setDirectionnalLightX={setDirectionnalLightX}
                         setDirectionnalLightY={setDirectionnalLightY}
                         setDirectionnalLightZ={setDirectionnalLightZ}
                         directionnalLightX={directionnalLightX}
                         directionnalLightY={directionnalLightY}
                         directionnalLightZ={directionnalLightZ}
-                    />
-                    <div id="ambiant-light-container">
+                    /> */}
+                    {/* <div id="ambiant-light-container">
                         <p>Ambiant Light</p>
                         <div>
                             <label>intensity</label>
                             <input type="number" step="0.1" max={1} min={-1} onChange={(e) => changeAmbiantLightIntensity(e)} value={ambiantLightIntensity} />
                         </div>
-                    </div>
+                    </div> */}
                 </div>
             </div>
         </>

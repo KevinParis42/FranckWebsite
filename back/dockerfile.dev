@@ -1,0 +1,6 @@
+FROM node:19.9.0
+WORKDIR /app
+COPY . .
+RUN npm install
+RUN npm install -g typescript
+

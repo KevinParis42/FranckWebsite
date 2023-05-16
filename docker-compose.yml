@@ -1,0 +1,36 @@
+version: '3'
+services:
+
+  franck-postgres:
+    image: "postgres:9.6-alpine"
+    container_name: franck-postgres
+    volumes:
+      - franck-data:/var/lib/postgresql/data
+    ports:
+      - 5433:5432
+    environment:
+      - POSTGRES_DB=franck_website
+      - POSTGRES_USER=franck_admin
+      - POSTGRES_PASSWORD=franck_admin
+
+  franck-back:
+    build: ./back
+    container_name: franck-back
+    environment:
+      - DB_SERVER=franck-postgres
+    ports:
+      - 3500:3500
+    links:
+      - franck-postgres
+
+  franck-front:
+    build: ./front
+    container_name: franck-front
+    ports:
+      - 3000:3000
+    links:
+      - franck-back
+
+
+volumes:
+  franck-data:

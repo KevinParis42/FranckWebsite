@@ -1,0 +1,45 @@
+version: '3'
+services:
+
+  franck-postgres:
+    container_name: franck-postgres
+    image: "postgres:9.6-alpine"
+    volumes:
+      - franck-data:/var/lib/postgresql/data
+    ports:
+      - 5433:5432
+    environment:
+      - POSTGRES_DB=franck_website
+      - POSTGRES_USER=franck_admin
+      - POSTGRES_PASSWORD=franck_admin
+
+  franck-back:
+    container_name: franck-back
+    build:
+      context: ./back
+      dockerfile: dockerfile.dev
+    volumes:
+      - ./back:/app
+    environment:
+      - DB_SERVER=franck-postgres
+    command: npm run dev
+    ports:
+      - 3500:3500
+    links:
+      - franck-postgres
+
+  franck-front:
+    container_name: franck-front
+    build:
+      context: ./back
+      dockerfile: dockerfile.dev
+    volumes:
+      - ./front:/app
+    command: npm run dev
+    ports:
+      - 3000:3000
+    links:
+      - franck-back
+
+volumes:
+  franck-data:
