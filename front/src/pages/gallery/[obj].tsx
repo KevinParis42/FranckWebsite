@@ -1,18 +1,19 @@
 import CarouselContainer from "@/components/Carousel";
 import ObjViewer from "@/components/ObjViewer";
 import PageLayout from "@/components/PageLayout";
-import { promises as fs } from 'fs';
 import type { GetStaticProps, InferGetStaticPropsType } from 'next';
-import path from "path";
 import styled from 'styled-components';
 
 
 export async function getStaticPaths() {
+
+  const res = await fetch(`${process.env.BACKEND_URL}/project`)
+  const data = await res.json()
+
+  const paths = data.map((project) => { return { params: { obj: project.name } } })
+
   return {
-    paths: [
-      { params: { obj: 'killerqueen' } },
-      { params: { obj: 'sword' } }
-    ],
+    paths: paths,
     fallback: false
   }
 }

@@ -18,45 +18,51 @@ const CanvasContainer: React.FC = () => {
         async function fetchGLTFData() {
             const response = await fetch('http://127.0.0.1:3500/project/sword')
             const data = await response.blob()
-            return data
+            return await data.arrayBuffer()
         }
 
         async function loadScene() {
-            const gltfData = await fetchGLTFData()
-            if (!sceneRef.current)
-                return
+            try {
 
-            const scene = new THREE.Scene()
-            const camera = new THREE.PerspectiveCamera(70, 2, 1, 100);
-            const renderer = new THREE.WebGLRenderer({ antialias: true });
-            setRenderer(renderer)
-            renderer.setSize(sceneRef.current.clientWidth, sceneRef.current.clientHeight)
+                const gltfData = await fetchGLTFData()
+                if (!sceneRef.current)
+                    return
 
-            const controls = new OrbitControls(camera, renderer.domElement)
-            controls.enableDamping = true
+                const scene = new THREE.Scene()
+                const camera = new THREE.PerspectiveCamera(70, 2, 1, 100);
+                const renderer = new THREE.WebGLRenderer({ antialias: true });
+                setRenderer(renderer)
+                renderer.setSize(sceneRef.current.clientWidth, sceneRef.current.clientHeight)
 
-            const loader = new GLTFLoader();
-            loader.parse(await gltfData.arrayBuffer(), '', (gltf) => {
-                scene.add(gltf.scene);
-            })
+                const controls = new OrbitControls(camera, renderer.domElement)
+                controls.enableDamping = true
 
-            const light = new THREE.SpotLight()
-            light.position.set(5, 5, 5)
-            scene.add(light)
+                const loader = new GLTFLoader();
+                loader.parse(gltfData, '', (gltf) => {
+                    scene.add(gltf.scene);
+                })
 
-            camera.position.z = 2;
+                const light = new THREE.SpotLight()
+                light.position.set(5, 5, 5)
+                scene.add(light)
 
-            sceneRef.current.appendChild(renderer.domElement)
-            function animate() {
-                requestAnimationFrame(animate)
-                controls.update()
-                render()
+                camera.position.z = 2;
+
+                sceneRef.current.appendChild(renderer.domElement)
+
+                function animate() {
+                    requestAnimationFrame(animate)
+                    controls.update()
+                    render()
+                }
+
+                function render() {
+                    renderer.render(scene, camera)
+                }
+                animate()
+            } catch (e) {
+                console.error(e)
             }
-
-            function render() {
-                renderer.render(scene, camera)
-            }
-            animate()
         }
 
         loadScene()

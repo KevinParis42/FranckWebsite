@@ -1,6 +1,5 @@
 import { Request, Response } from "express"
 import ProjectService from "../services/project.service"
-import { readFileSync } from 'fs'
 import { join } from "path"
 
 
@@ -17,10 +16,12 @@ export default class ProjectController {
 
     static create = async (req: Request, res: Response) => {
         try {
+            // @ts-ignore
             if (!req.file) {
                 res.sendStatus(400)
                 return
             }
+            // @ts-ignore
             const path = req.file.path;
             res.json(await ProjectService.create({ ...req.body, filepath: path }))
         } catch (error) {
