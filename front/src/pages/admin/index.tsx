@@ -13,8 +13,24 @@ const AdminPage: React.FC = () => {
     const [imageFiles, setImageFiles] = useState<HTMLInputElement["files"]>()
 
     const sendFiles = () => {
+        if (!objFile || !projectName)
+            return
+
         setDisplayStep(false)
-        console.log(projectName, objFile, imageFiles)
+        const form = new FormData();
+        form.append("name", projectName.toLowerCase());
+        form.append("file", objFile[0]);
+
+        const options = {
+            method: 'POST',
+            body: form
+        };
+
+
+        fetch('http://localhost:3500/project', options)
+            .then(response => response.json())
+            .then(response => console.log(response))
+            .catch(err => console.error(err));
 
     }
 

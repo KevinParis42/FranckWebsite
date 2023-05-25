@@ -4,6 +4,20 @@ import PageLayout from "@/components/PageLayout";
 import type { GetStaticProps, InferGetStaticPropsType } from 'next';
 import styled from 'styled-components';
 
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+  if (params && params.obj) {
+    const queryName = typeof (params.obj) === "object" ? params.obj[0] : params.obj
+    return {
+      props: {
+        obj: queryName
+      },
+      revalidate: 10
+    }
+  }
+  return {
+    notFound: true
+  }
+}
 
 export async function getStaticPaths() {
 
@@ -14,26 +28,13 @@ export async function getStaticPaths() {
 
   return {
     paths: paths,
-    fallback: false
+    fallback: 'blocking'
   }
 }
 
-export const getStaticProps: GetStaticProps = async ({ params }) => {
 
-  if (params && params.obj) {
-    const queryName = typeof (params.obj) === "object" ? params.obj[0] : params.obj
-    return {
-      props: {
-        obj: queryName
-      },
-    }
-  }
-  return {
-    notFound: true
-  }
-}
 
-function ObjPage({ mtlFilePath, objFilePath, obj }: InferGetStaticPropsType<typeof getStaticProps>) {
+function ObjPage({ obj }: InferGetStaticPropsType<typeof getStaticProps>) {
 
   return (
     <PageLayout>
@@ -48,7 +49,7 @@ function ObjPage({ mtlFilePath, objFilePath, obj }: InferGetStaticPropsType<type
           <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde eius quisquam tenetur delectus nemo ullam aut, iusto quo dolorum reprehenderit dicta ipsam iure quod quasi totam vitae doloribus voluptates pariatur!</p> */}
         </HeaderContainer>
         <br />
-        <ObjViewer mtlFilePath={mtlFilePath} objFilePath={objFilePath} />
+        <ObjViewer projectName={obj} />
         <br />
         <CarouselContainer />
       </ObjPageContainer>

@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import CanvasContainer from './CanvasContainer';
 import DirectionnalLightContainer from './DirectionnalLightContainer';
 
-const ObjViewer: React.FC<{ mtlFilePath: string, objFilePath: Blob }> = ({ mtlFilePath, objFilePath }) => {
+const ObjViewer: React.FC<{ projectName: string }> = ({ projectName }) => {
 
     const [directionnalLightX, setDirectionnalLightX] = useState<number>(0)
     const [directionnalLightZ, setDirectionnalLightZ] = useState<number>(1)
@@ -19,7 +19,7 @@ const ObjViewer: React.FC<{ mtlFilePath: string, objFilePath: Blob }> = ({ mtlFi
         <>
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                 <div style={{ height: '40vh', width: '40vw', border: 'solid white' }}>
-                    <CanvasContainer />
+                    <CanvasContainer projectName={projectName} />
                 </div>
                 <div id="control-container">
                     {/* <DirectionnalLightContainer

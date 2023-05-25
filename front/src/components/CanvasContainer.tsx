@@ -6,7 +6,7 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 
 
-const CanvasContainer: React.FC = () => {
+const CanvasContainer: React.FC<{ projectName: string }> = ({ projectName }) => {
 
     const sceneRef = useRef<HTMLInputElement>(null)
     const [renderer, setRenderer] = useState<THREE.WebGLRenderer>()
@@ -16,7 +16,8 @@ const CanvasContainer: React.FC = () => {
 
     useMemo(() => {
         async function fetchGLTFData() {
-            const response = await fetch('http://127.0.0.1:3500/project/sword')
+            console.log(projectName)
+            const response = await fetch(`http://127.0.0.1:3500/project/${projectName}`)
             const data = await response.blob()
             return await data.arrayBuffer()
         }
