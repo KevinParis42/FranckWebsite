@@ -13,4 +13,13 @@ export default class ProjectImagesController {
         }
     }
 
+    static getByProjectId = async (req: Request, res: Response) => {
+        try {
+            res.json(await ProjectImagesService.getByProjectId(parseInt(req.params.projectId)))
+        } catch (error) {
+            console.error(error)
+            res.sendStatus(500)
+        }
+    }
+
 }

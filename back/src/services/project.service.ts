@@ -26,11 +26,11 @@ export default class ProjectService {
         return Project.create({
             ...body,
             filepath: `uploads/${body.name}.gltf`,
-            images: body.images.map((image) => { return { name: image.fieldname, imagePath: image.path } })
+            images: body.images.map((image) => { return { name: image.fieldname, imagePath: image.path.replace('uploads/', '') } })
         }, { include: [ProjectImages] })
     }
 
     static getByName = (name: string) => {
-        return Project.findOne({ where: { name: name } })
+        return Project.findOne({ where: { name: name }, include: { all: true } })
     }
 }

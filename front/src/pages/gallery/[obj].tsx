@@ -7,9 +7,14 @@ import styled from 'styled-components';
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   if (params && params.obj) {
     const queryName = typeof (params.obj) === "object" ? params.obj[0] : params.obj
+
+    const res = await fetch(`${process.env.BACKEND_URL}/project/${queryName}`)
+    const data = await res.json()
+
     return {
       props: {
-        obj: queryName
+        obj: queryName,
+        images: data.images
       },
       revalidate: 10
     }
@@ -34,7 +39,7 @@ export async function getStaticPaths() {
 
 
 
-function ObjPage({ obj }: InferGetStaticPropsType<typeof getStaticProps>) {
+function ObjPage({ obj, images }: InferGetStaticPropsType<typeof getStaticProps>) {
 
   return (
     <PageLayout>
@@ -51,7 +56,7 @@ function ObjPage({ obj }: InferGetStaticPropsType<typeof getStaticProps>) {
         <br />
         <ObjViewer projectName={obj} />
         <br />
-        <CarouselContainer />
+        <CarouselContainer images={images} />
       </ObjPageContainer>
     </PageLayout>
   )
