@@ -16,19 +16,16 @@ const CanvasContainer: React.FC<{ projectName: string }> = ({ projectName }) => 
 
     useMemo(() => {
         async function fetchGLTFData() {
-            console.log(projectName)
-            const response = await fetch(`http://127.0.0.1:3500/project/${projectName}`)
+            const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/project/${projectName}/file`)
             const data = await response.blob()
             return await data.arrayBuffer()
         }
 
         async function loadScene() {
             try {
-
-                const gltfData = await fetchGLTFData()
                 if (!sceneRef.current)
                     return
-
+                const gltfData = await fetchGLTFData()
                 const scene = new THREE.Scene()
                 const camera = new THREE.PerspectiveCamera(70, 2, 1, 100);
                 const renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -43,9 +40,13 @@ const CanvasContainer: React.FC<{ projectName: string }> = ({ projectName }) => 
                     scene.add(gltf.scene);
                 })
 
-                const light = new THREE.SpotLight()
-                light.position.set(5, 5, 5)
-                scene.add(light)
+                const spotlight = new THREE.SpotLight()
+                spotlight.position.set(15, 15, 15)
+                scene.add(spotlight)
+
+                const ambiantLight = new THREE.DirectionalLight('white', 3)
+                ambiantLight.position.set(1, 1, 1)
+                scene.add(ambiantLight)
 
                 camera.position.z = 2;
 
@@ -67,10 +68,9 @@ const CanvasContainer: React.FC<{ projectName: string }> = ({ projectName }) => 
         }
 
         loadScene()
-    }, [])
+    }, [sceneRef.current])
 
     useEffect(() => {
-        console.log(width, height)
         if (!sceneRef.current)
             return
         renderer?.setSize(sceneRef.current.clientWidth, sceneRef.current.clientHeight)

@@ -1,7 +1,8 @@
 import { Sequelize } from 'sequelize-typescript';
-import fs from 'fs'
-import path from 'path'
 import * as dotenv from 'dotenv'
+import Project from './models/project.model';
+import ProjectImages from './models/projectImages.model';
+import User from './models/user.model';
 
 dotenv.config()
 
@@ -16,16 +17,11 @@ const sequelize = new Sequelize(
   }
 )
 
-const basename = path.basename(__filename);
-
-fs
-  .readdirSync(__dirname + '/models')
-  .filter(file => {
-    return (file.indexOf('.') !== 0) && (file !== basename) && (file.slice(-3) === '.js');
-  })
-  .forEach(file => {
-    sequelize.addModels([path.join(__dirname + '/models', file)])
-  });
+sequelize.addModels([
+  User,
+  ProjectImages,
+  Project,
+])
 
 console.log(sequelize.models,)
 

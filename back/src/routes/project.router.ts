@@ -6,7 +6,8 @@ const upload = multer({ dest: 'uploads/' });
 const router = express.Router()
 
 router.get('/', ProjectController.getAll)
-router.post('/', upload.single('file'), ProjectController.create)
-router.get('/:name', ProjectController.getOne)
+router.post('/', upload.any(), ProjectController.create)
+router.get('/:name', ProjectController.getByProjectName)
+router.get('/:name/file', ProjectController.get3dFileByProjectName)
 
 export default router

@@ -1,4 +1,5 @@
-import { Table, Column, Model, DataType } from 'sequelize-typescript';
+import { Table, Column, Model, DataType, HasMany } from 'sequelize-typescript';
+import ProjectImages from './projectImages.model';
 
 @Table
 export default class Project extends Model {
@@ -10,4 +11,7 @@ export default class Project extends Model {
 
     @Column
     filepath: string;
+
+    @HasMany(() => ProjectImages)
+    images: ProjectImages[];
 }
