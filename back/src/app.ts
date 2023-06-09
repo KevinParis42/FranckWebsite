@@ -1,7 +1,7 @@
-import express from 'express'
 import cookieParser from 'cookie-parser'
-import logger from 'morgan'
 import cors from 'cors'
+import express from 'express'
+import logger from 'morgan'
 import sequelize from './db'
 
 import indexRouter from './routes/index'

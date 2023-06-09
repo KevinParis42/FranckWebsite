@@ -1,5 +1,5 @@
+import * as dotenv from 'dotenv';
 import { Sequelize } from 'sequelize-typescript';
-import * as dotenv from 'dotenv'
 import Project from './models/project.model';
 import ProjectImages from './models/projectImages.model';
 import User from './models/user.model';

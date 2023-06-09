@@ -4,10 +4,10 @@
  * Module dependencies.
  */
 
- import app from '../app.js';
- import debugLib from 'debug';
- import http from 'http';
- const debug = debugLib('projetdex:server');
+import debugLib from 'debug';
+import http from 'http';
+import app from '../app.js';
+const debug = debugLib('projetdex:server');
 
 /**
  * Get port from environment and store in Express.

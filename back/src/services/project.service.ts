@@ -1,8 +1,7 @@
-import { Optional } from "sequelize"
 import Project from "../db/models/project.model"
 // @ts-ignore
-import obj2gltf from "obj2gltf"
 import fs from 'fs'
+import obj2gltf from "obj2gltf"
 import ProjectImages from "../db/models/projectImages.model"
 
 type createBody = {

@@ -1,5 +1,6 @@
-import React from 'react';
 import { Carousel, Image } from 'antd';
+import React from 'react';
+import styled from 'styled-components';
 
 type imageType = {
     id: number,
@@ -17,7 +18,7 @@ const contentStyle: React.CSSProperties = {
 };
 
 const CarouselContainer: React.FC<{ images: imageType[] }> = ({ images }) => (
-    <div id='carousel-container' style={{ width: '90%' }}>
+    <CarouselStyledDiv id='carousel-container'>
         <Carousel autoplay>
             {images && images.map(image =>
                 <div>
@@ -27,7 +28,11 @@ const CarouselContainer: React.FC<{ images: imageType[] }> = ({ images }) => (
                 </div>
             )}
         </Carousel>
-    </div>
-);
+    </CarouselStyledDiv>
+)
+
+const CarouselStyledDiv = styled.div`
+    width: 90%;
+`
 
 export default CarouselContainer;

@@ -1,6 +1,6 @@
 import { Request, Response } from "express"
-import ProjectService from "../services/project.service"
 import { join } from "path"
+import ProjectService from "../services/project.service"
 
 
 export default class ProjectController {

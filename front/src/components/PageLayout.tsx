@@ -1,12 +1,12 @@
+import { FileImageOutlined, HomeOutlined, ContactsOutlined } from '@ant-design/icons';
+import { Menu, MenuProps } from 'antd';
 import React from 'react';
-import { HomeOutlined, UserOutlined, VideoCameraOutlined } from '@ant-design/icons';
-import { MenuProps } from 'antd';
 
-import { Layout, Menu, theme } from 'antd';
+import { Layout } from 'antd';
 import Link from 'next/link';
-import Image from 'next/image';
+import styled from 'styled-components';
 
-const { Header, Content, Footer, Sider } = Layout;
+const { Content, Footer, } = Layout;
 
 type PropsType = {
     children: JSX.Element | JSX.Element[]
@@ -17,32 +17,43 @@ const items: MenuProps['items'] = [
         key: 1,
         icon: <Link href='/'><HomeOutlined /></Link>,
         label: 'Home'
+    },
+    {
+        key: 2,
+        icon: <Link href='/gallery'><FileImageOutlined /></Link>,
+        label: 'Galery'
+    },
+    {
+        key: 3,
+        icon: <Link href='/'><ContactsOutlined /></Link>,
+        label: 'About Me'
     }
 ]
 
 const PageLayout: React.FC<PropsType> = ({ children }) => {
     return (
 
-        <Layout hasSider>
-            <Sider
-                style={{
-                    overflow: 'auto',
-                    height: '100vh',
-                    position: 'fixed',
-                    left: 0,
-                    top: 0,
-                    bottom: 0,
-                }}
-            >
-                <Image src={'/babydick.jpg'} width={'200'} height={'200'} alt='babydick.jpg'/>
-                <Menu theme="dark" mode="inline" defaultSelectedKeys={['4']} items={items} />
-            </Sider>
-            <Layout style={{ marginLeft: 200 }}>
-                <Content>{children}</Content>
-                <Footer>Kévin PARIS</Footer>
-            </Layout>
-        </Layout>
+        <LayoutContainer>
+            <Menu
+                items={items}
+                theme='light'
+                mode='horizontal'
+            />
+            <ContentContainer>{children}</ContentContainer>
+            <FooterContainer>© Kévin PARIS - Tous droits réservés</FooterContainer>
+        </LayoutContainer >
     );
 };
+
+const LayoutContainer = styled(Layout)`
+    height: 100vh;
+`
+
+const ContentContainer = styled(Content)`
+    padding: 15px;
+`
+
+const FooterContainer = styled(Footer)`
+`
 
 export default PageLayout;
