@@ -9,7 +9,8 @@ const Home = () => {
 
   const getProjects = async () => {
     const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/project`)
-    setProjects(await res.json())
+    const datas = await res.json()
+    setProjects(datas.filter((data: projectType) => data.isPublished ?? data))
   }
 
   useEffect(() => {
