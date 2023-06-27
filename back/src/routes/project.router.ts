@@ -7,6 +7,7 @@ const router = express.Router()
 router.get('/', ProjectController.getAll)
 router.post('/', upload.any(), ProjectController.create)
 router.get('/:name', ProjectController.getByProjectName)
+router.delete('/:id', ProjectController.deleteById)
 router.get('/:name/file', ProjectController.get3dFileByProjectName)
 
 export default router

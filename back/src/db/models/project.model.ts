@@ -1,5 +1,6 @@
-import { Column, HasMany, Model, Table } from 'sequelize-typescript';
+import { Column, Default, HasMany, Model, Table } from 'sequelize-typescript';
 import ProjectImages from './projectImages.model';
+import ProjectTextures from './projectTextures.model ';
 
 @Table
 export default class Project extends Model {
@@ -7,11 +8,18 @@ export default class Project extends Model {
     name: string;
 
     @Column
-    description: string;
+    objPath: string;
 
     @Column
-    filepath: string;
+    mtlPath: string;
+
+    @HasMany(() => ProjectTextures)
+    textures: ProjectTextures[];
 
     @HasMany(() => ProjectImages)
     images: ProjectImages[];
+
+    @Default(true)
+    @Column
+    isPublished: Boolean;
 }
