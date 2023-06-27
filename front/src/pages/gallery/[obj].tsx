@@ -1,6 +1,7 @@
 import CarouselContainer from "@/components/Carousel";
 import ObjViewer from "@/components/ObjViewer";
 import PageLayout from "@/components/PageLayout";
+import { projectType } from '@/types';
 import type { GetStaticProps, InferGetStaticPropsType } from 'next';
 import styled from 'styled-components';
 
@@ -29,7 +30,7 @@ export async function getStaticPaths() {
   const res = await fetch(`${process.env.BACKEND_URL}/project`)
   const data = await res.json()
 
-  const paths = data.map((project) => { return { params: { obj: project.name } } })
+  const paths = data.map((project: projectType) => { return { params: { obj: project.name } } })
 
   return {
     paths: paths,

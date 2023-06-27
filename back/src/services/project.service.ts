@@ -4,9 +4,15 @@ import ProjectImages from "../db/models/projectImages.model";
 import ProjectTextures from "../db/models/projectTextures.model ";
 
 type createBody = {
+    isPublished: boolean,
+    id: number,
     name: string,
-    filepath: string,
-    images: Express.Multer.File[]
+    objPath: string,
+    mtlPath: string,
+    textures: ProjectTextures[],
+    images: ProjectImages[],
+    updatedAt: Date,
+    createdAt: Date
 }
 
 
@@ -50,5 +56,9 @@ export default class ProjectService {
 
     static deleteById = (id: number) => {
         return Project.destroy({ where: { id: id } })
+    }
+
+    static updateById = async (id: number, body: any) => {
+        return Project.update({ ...body }, { where: { id: id } })
     }
 }

@@ -1,16 +1,7 @@
 import PageLayout from "@/components/PageLayout"
+import { projectType } from "@/types"
 import Link from "next/link"
 import { useEffect, useState } from "react"
-
-type projectType = {
-  "id": number,
-  "name": string,
-  "description": string,
-  "filepath": string,
-  "images": any,
-  "updatedAt": Date,
-  "createdAt": Date
-}
 
 const Home = () => {
 

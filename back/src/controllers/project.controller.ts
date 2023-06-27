@@ -1,5 +1,4 @@
 import { Request, Response } from "express"
-import { join } from "path"
 import ProjectService from "../services/project.service"
 
 
@@ -21,25 +20,7 @@ export default class ProjectController {
                 res.sendStatus(400)
                 return
             }
-            // const textures: Express.Multer.File[] = req.files.filter((file: Express.Multer.File) => file.fieldname.includes('Textures'))
             res.json(await ProjectService.create({ ...req.body }, req.files))
-        } catch (error) {
-            console.error(error)
-            res.sendStatus(500)
-        }
-    }
-
-    static get3dFileByProjectName = async (req: Request, res: Response) => {
-        try {
-            const project = await ProjectService.getByName(req.params.name)
-            if (!project || !project.filepath) {
-                res.sendStatus(500)
-                return
-            }
-
-            const filepath = join(process.cwd(), project.filepath);
-
-            res.sendFile(filepath)
         } catch (error) {
             console.error(error)
             res.sendStatus(500)
@@ -61,6 +42,16 @@ export default class ProjectController {
     static deleteById = (req: Request, res: Response) => {
         try {
             ProjectService.deleteById(parseInt(req.params.id))
+            res.sendStatus(204)
+        } catch (error) {
+            console.error(error)
+            res.sendStatus(500)
+        }
+    }
+
+    static updateById = async (req: Request, res: Response) => {
+        try {
+            ProjectService.updateById(parseInt(req.params.id), { ...req.body })
             res.sendStatus(204)
         } catch (error) {
             console.error(error)

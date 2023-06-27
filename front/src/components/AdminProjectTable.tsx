@@ -1,28 +1,33 @@
+import { projectType } from '@/types';
 import DeleteOutlined from '@ant-design/icons/lib/icons/DeleteOutlined';
 import { Button, Checkbox, Table } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import React, { useEffect, useState } from 'react';
 
 
-interface DataType {
-    key: string;
-    name: string;
-    link: string;
-    isPublished: boolean;
-}
-
 const AdminProjectTable: React.FC = () => {
 
-    const [projects, setProjects] = useState([])
+    const [projects, setProjects] = useState<projectType[]>([])
 
     const getProjects = async () => {
         const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/project`)
         setProjects(await res.json())
     }
 
-    const deleteProject = (deletedProject) => {
+    const deleteProject = (deletedProject: projectType) => {
         fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/project/${deletedProject.id}`, { method: 'DELETE' })
-        setProjects(projects.filter(project => project.id !== deletedProject.id))
+        setProjects(projects.filter((project: projectType) => project.id !== deletedProject.id))
+    }
+
+    const updatePublished = async (updateProject: projectType) => {
+        const options = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: new URLSearchParams({ isPublished: String(!updateProject.isPublished) })
+        }
+        fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/project/${updateProject.id}`, options)
+        console.log(projects.map(project => project.id === updateProject.id ? { ...updateProject, isPublished: !updateProject.isPublished } : project))
+        setProjects(projects.map(project => project.id === updateProject.id ? { ...updateProject, isPublished: !updateProject.isPublished } : project))
     }
 
     useEffect(() => {
@@ -30,7 +35,7 @@ const AdminProjectTable: React.FC = () => {
         console.log(projects[0])
     }, [])
 
-    const columns: ColumnsType<DataType> = [
+    const columns: ColumnsType<projectType> = [
         {
             title: 'id',
             dataIndex: 'id',
@@ -50,11 +55,11 @@ const AdminProjectTable: React.FC = () => {
         {
             title: 'isPublished',
             dataIndex: 'isPublished',
-            render: (value: boolean) => <Checkbox checked={value} />,
+            render: (value, project: projectType) => <Checkbox onClick={() => updatePublished(project)} checked={value} />,
             key: 'isPublished',
         },
         {
-            render: (project) => <Button danger onClick={() => deleteProject(project)}><DeleteOutlined /></Button>,
+            render: (project: projectType) => <Button danger onClick={() => deleteProject(project)}><DeleteOutlined /></Button>,
             key: 'delete'
         }
     ]
