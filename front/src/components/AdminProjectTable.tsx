@@ -2,17 +2,12 @@ import { projectType } from '@/types';
 import DeleteOutlined from '@ant-design/icons/lib/icons/DeleteOutlined';
 import { Button, Checkbox, Table } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
-import React, { useEffect, useState } from 'react';
+import React, { SetStateAction } from 'react';
 
 
-const AdminProjectTable: React.FC = () => {
+const AdminProjectTable: React.FC<{ projects: projectType[], setProjects: React.Dispatch<SetStateAction<projectType[]>> }> = ({ projects, setProjects }) => {
 
-    const [projects, setProjects] = useState<projectType[]>([])
 
-    const getProjects = async () => {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/project`)
-        setProjects(await res.json())
-    }
 
     const deleteProject = (deletedProject: projectType) => {
         fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/project/${deletedProject.id}`, { method: 'DELETE' })
@@ -30,10 +25,6 @@ const AdminProjectTable: React.FC = () => {
         setProjects(projects.map(project => project.id === updateProject.id ? { ...updateProject, isPublished: !updateProject.isPublished } : project))
     }
 
-    useEffect(() => {
-        getProjects()
-        console.log(projects[0])
-    }, [])
 
     const columns: ColumnsType<projectType> = [
         {

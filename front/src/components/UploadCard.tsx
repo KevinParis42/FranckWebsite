@@ -1,10 +1,11 @@
+import { projectType } from "@/types"
 import { Button, Card } from "antd"
-import { useState } from "react"
+import React, { SetStateAction, useState } from "react"
 import { Steps, useSteps } from "react-step-builder"
 import styled from "styled-components"
 
 
-const UploadCard: React.FC = () => {
+const UploadCard: React.FC<{ projects: projectType[], setProjects: React.Dispatch<SetStateAction<projectType[]>> }> = ({ projects, setProjects }) => {
     const { next, prev, jump } = useSteps()
     const [displayStep, setDisplayStep] = useState<boolean>(true)
     const [projectName, setProjectName] = useState('')
@@ -48,8 +49,10 @@ const UploadCard: React.FC = () => {
         };
 
         const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/project`, options)
-        if (res.status === 200)
+        if (res.status === 200) {
             setSucess(true)
+            setProjects([...projects, await res.json()])
+        }
     }
 
     return (

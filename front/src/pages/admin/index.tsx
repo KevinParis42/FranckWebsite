@@ -2,23 +2,35 @@ import AdminLogForm from "@/components/AdminLogForm"
 import AdminPageLayout from "@/components/AdminPageLayout"
 import AdminProjectTable from "@/components/AdminProjectTable"
 import UploadCard from "@/components/UploadCard"
-import { useState } from "react"
+import { projectType } from "@/types"
+import { useEffect, useState } from "react"
 
 
 const AdminPage: React.FC = () => {
 
     const [logged, setLogged] = useState(false)
+    const [projects, setProjects] = useState<projectType[]>([])
+
+    const getProjects = async () => {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/project`)
+        setProjects(await res.json())
+    }
+
+    useEffect(() => {
+        getProjects()
+    }, [])
+
 
     return (
         <AdminPageLayout>
             {logged ?
                 <>
                     <div>
-                        <UploadCard />
+                        <UploadCard projects={projects} setProjects={setProjects} />
                     </div>
                     <br />
                     <div>
-                        <AdminProjectTable />
+                        <AdminProjectTable projects={projects} setProjects={setProjects} />
                     </div>
                 </>
                 :
