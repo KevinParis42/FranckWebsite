@@ -1,5 +1,4 @@
 import { Request, Response } from "express"
-import { join } from "path"
 import ProjectService from "../services/project.service"
 
 
@@ -21,28 +20,7 @@ export default class ProjectController {
                 res.sendStatus(400)
                 return
             }
-            // @ts-ignore
-            const path = req.files[0].path;
-            // @ts-ignore
-            const images: Express.Multer.File[] = req.files.slice(1)
-            res.json(await ProjectService.create({ ...req.body, filepath: path, images }))
-        } catch (error) {
-            console.error(error)
-            res.sendStatus(500)
-        }
-    }
-
-    static get3dFileByProjectName = async (req: Request, res: Response) => {
-        try {
-            const project = await ProjectService.getByName(req.params.name)
-            if (!project || !project.filepath) {
-                res.sendStatus(500)
-                return
-            }
-
-            const filepath = join(process.cwd(), project.filepath);
-
-            res.sendFile(filepath)
+            res.json(await ProjectService.create({ ...req.body }, req.files))
         } catch (error) {
             console.error(error)
             res.sendStatus(500)
@@ -55,6 +33,26 @@ export default class ProjectController {
             if (!project)
                 return res.sendStatus(500)
             res.json(project)
+        } catch (error) {
+            console.error(error)
+            res.sendStatus(500)
+        }
+    }
+
+    static deleteById = (req: Request, res: Response) => {
+        try {
+            ProjectService.deleteById(parseInt(req.params.id))
+            res.sendStatus(204)
+        } catch (error) {
+            console.error(error)
+            res.sendStatus(500)
+        }
+    }
+
+    static updateById = async (req: Request, res: Response) => {
+        try {
+            ProjectService.updateById(parseInt(req.params.id), { ...req.body })
+            res.sendStatus(204)
         } catch (error) {
             console.error(error)
             res.sendStatus(500)

@@ -1,11 +1,11 @@
-import { Spin } from 'antd'
-import React, { useEffect, useRef, useMemo, useState } from 'react'
+import { Spin } from 'antd';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
-import * as THREE from 'three'
-import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader'
-import { MTLLoader } from 'three/examples/jsm/loaders/MTLLoader'
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
-import styled from 'styled-components'
+import styled from 'styled-components';
+import * as THREE from 'three';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+import { MTLLoader } from 'three/examples/jsm/loaders/MTLLoader';
+import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader';
 
 
 const CanvasContainer: React.FC<{ projectName: string }> = ({ projectName }) => {
@@ -34,12 +34,12 @@ const CanvasContainer: React.FC<{ projectName: string }> = ({ projectName }) => 
         controls.enableDamping = true
 
         const mtlLoader = new MTLLoader()
-        mtlLoader.load(`${process.env.NEXT_PUBLIC_BACKEND_URL}/cardboard.mtl`,
+        mtlLoader.load(`${process.env.NEXT_PUBLIC_BACKEND_URL}/${projectName}.mtl`,
             (materials) => {
                 materials.preload()
                 const loader = new OBJLoader()
                 loader.setMaterials(materials)
-                loader.load(`${process.env.NEXT_PUBLIC_BACKEND_URL}/cardboard.obj`,
+                loader.load(`${process.env.NEXT_PUBLIC_BACKEND_URL}/${projectName}.obj`,
                     (object) => {
                         scene.add(object)
                     }, (xhr) => {

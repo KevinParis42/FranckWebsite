@@ -2,12 +2,12 @@ import { BelongsTo, Column, ForeignKey, Model, Table } from 'sequelize-typescrip
 import Project from './project.model';
 
 @Table
-export default class ProjectImages extends Model {
+export default class ProjectTextures extends Model {
     @Column
     name: string;
 
     @Column
-    imagePath: string;
+    texturePath: string;
 
     @ForeignKey(() => Project)
     @Column

@@ -28,6 +28,9 @@ const LayoutContainer = styled(Layout)`
 
 const ContentContainer = styled(Content)`
     flex: 1;
+    margin-top: 2%;
+    padding-left: 10vw;
+    padding-right: 10vw;
 `
 
 export default AdminPageLayout;
