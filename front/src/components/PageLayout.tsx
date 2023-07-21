@@ -1,8 +1,9 @@
-import { ContactsOutlined, FileImageOutlined, HomeOutlined } from '@ant-design/icons';
+import { ContactsOutlined, HomeOutlined } from '@ant-design/icons';
 import { Menu, MenuProps } from 'antd';
 import React from 'react';
 
 import { Layout } from 'antd';
+import Image from 'next/image';
 import Link from 'next/link';
 import styled from 'styled-components';
 
@@ -20,7 +21,7 @@ const items: MenuProps['items'] = [
     },
     {
         key: 2,
-        icon: <Link href='/'><ContactsOutlined /></Link>,
+        icon: <Link href='/aboutMe'><ContactsOutlined /></Link>,
         label: 'About Me'
     }
 ]
@@ -30,11 +31,13 @@ const PageLayout: React.FC<PropsType> = ({ children }) => {
 
         <LayoutContainer>
             <MenuContainer>
-                <NavBar
+                <Image src={"/name_header.png"} alt="Franck Courtat" width={50} height={50} />
+                {/* <NavBar
                     items={items}
                     theme='light'
                     mode='horizontal'
-                />
+                    style={{ width: '50vw', opacity: 0.5 }}
+                /> */}
             </MenuContainer>
             <ContentContainer>{children}</ContentContainer>
             <FooterContainer>© Kévin PARIS - Tous droits réservés</FooterContainer>
@@ -43,35 +46,26 @@ const PageLayout: React.FC<PropsType> = ({ children }) => {
 };
 
 const LayoutContainer = styled(Layout)`
-    height: 100vh;
-    background: rgb(44,134,226);
-    background: linear-gradient(150deg, rgba(44,134,226,1) 0%, rgba(63,28,194,1) 35%, rgba(3,16,94,1) 90%);
-
+    min-height: 100vh;
+    background: #292653;
 `
 
 const ContentContainer = styled(Content)`
-    padding-left: 15vw;
-    padding-right: 15vw;
+    height: auto;
+    /* padding-left: 15vw;
+    padding-right: 15vw; */
 `
 
 const MenuContainer = styled.div`
-    background: url('/hero.jpg') no-repeat;
-    background-size: cover;
-    background-position-y: 70%;
-    height: 25vh;
-    opacity: 50%;
-
-`
-
-const NavBar = styled(Menu)`
-    height: 7vh;
-    background-color: rgba(255, 255, 255, 0.4);
+    background-color: rgba(255, 255, 255, 0.6);
     border-bottom-right-radius: 30px 40px;
     border-bottom-left-radius: 30px 40px;
     backdrop-filter: blur(8px);
-    box-shadow: -1px 1px 17px 5px #ffffff inset
+    box-shadow: -1px 1px 17px 5px #ffffff inset;
+`
 
-;
+const NavBar = styled(Menu)`
+
 `
 
 const FooterContainer = styled(Footer)`
