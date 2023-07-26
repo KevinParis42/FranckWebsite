@@ -1,6 +1,7 @@
 import PageLayout from "@/components/PageLayout"
 import { devices } from "@/sizes"
 import { projectType } from "@/types"
+import { Card } from "antd"
 import Image from "next/image"
 import Link from "next/link"
 import { useEffect, useState } from "react"
@@ -18,6 +19,7 @@ const Home = () => {
 
   useEffect(() => {
     getProjects()
+    console.log(projects)
   }, [])
 
   return (
@@ -28,20 +30,29 @@ const Home = () => {
       </HeroDiv>
       <br />
       <GalleryDiv>
-        <h2>gallerie</h2>
-        <hr />
+        <TitleDiv>
+          <GalleryTitle>GALLERIE 3D</GalleryTitle>
+          <hr />
+        </TitleDiv>
         <div>
-          ici c'est les projets
+          {projects &&
+            <ProjectGrid>
+              {projects.map(project => <div key={project.id}>
+                <Link href={`/gallery/${project.name}`}>
+                  <StyledCard
+                    hoverable
+                    cover={<img alt="example" src={`${process.env.NEXT_PUBLIC_BACKEND_URL}/${project.images[0].imagePath}`} />}
+                  >
+                    <StyledCardMeta title={project.name.toUpperCase()} />
+                  </StyledCard>
+                </Link>
+              </div>)}
+            </ProjectGrid>
+          }
         </div>
       </GalleryDiv>
+      <br />
 
-      {projects &&
-        <>
-          {projects.map(project => <div key={project.id}>
-            <Link href={`/gallery/${project.name}`}>{project.name}</Link>
-          </div>)}
-        </>
-      }
     </PageLayout>
   )
 }
@@ -59,14 +70,12 @@ const HeroDiv = styled.div`
   background-size: 100% 100%;
 
   @media ${devices.tablet} {
-    background-image: url('/form.png');
-    background-repeat: repeat;
-    background-size: 100% 100%;
     height: 10vh;
   }
 `
 
 const HeroImg = styled(Image)`
+  min-width: 240px;
   width: 50%;
   height: auto;
 
@@ -79,17 +88,54 @@ const HeroImg = styled(Image)`
 
 const GalleryDiv = styled.div`
   min-height: 60vh;
+  min-width: 250px;
+  margin-left: 4vw;
+  margin-right: 4vw;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
-  margin-left: 8vh;
-  margin-right: 8vh;
   border: 1px solid black;
   border-radius: 20px;
   background: rgb(42,112,248);
-  background: linear-gradient(355deg, rgba(42,112,248,1) 10%, rgba(126,73,193,1) 90%);
+  background: linear-gradient(175deg, rgba(42,112,248,1) 10%, rgba(126,73,193,1) 90%);
   box-shadow: 0.5px 0 16.5px 4.5px rgba(0, 0, 0, 0.4);
 
+  @media ${devices.mobileM} {
+    margin-left: 8vw;
+    margin-right: 8vw;
+  }
+`
 
+const TitleDiv = styled.div`
+  width: 95%;
+`
+
+const GalleryTitle = styled.h2`
+  color: white;
+  font-family: 'ArcaneNine';
+  /* font-size: 25px; */
+  text-align: center;
+  margin-top: 5px;
+`
+
+const ProjectGrid = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+`
+
+const StyledCard = styled(Card)`
+  width: 240px;
+  margin: 10px;
+  background-color: #FEFEE2;
+
+  @media ${devices.laptop} {
+    width: 20vw;
+  }
+`
+const StyledCardMeta = styled(Card.Meta)`
+  text-align: center;
+  font-family: 'ChampAndLim';
 `
