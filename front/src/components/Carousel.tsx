@@ -2,6 +2,8 @@ import { Carousel, Image } from 'antd';
 import React from 'react';
 import styled from 'styled-components';
 
+const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL
+
 type imageType = {
     id: number,
     name: string,
@@ -23,7 +25,7 @@ const CarouselContainer: React.FC<{ images: imageType[] }> = ({ images }) => (
             {images && images.map(image =>
                 <div>
                     <div style={contentStyle}>
-                        <Image src={`${process.env.NEXT_PUBLIC_BACKEND_URL}/${image.imagePath}`} height={'100%'} alt='baka' />
+                        <Image src={`${BACKEND_URL}/${image.imagePath}`} height={'100%'} alt='baka' />
                     </div>
                 </div>
             )}

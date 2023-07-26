@@ -1,12 +1,15 @@
 import { Button, Form, Input } from 'antd';
 import React, { SetStateAction } from 'react';
 
+const USERNAME = process.env.NEXT_PUBLIC_ADMIN_USERNAME
+const PASSWORD = process.env.NEXT_PUBLIC_ADMIN_PASSWORD
+
 
 
 const AdminLogForm: React.FC<{ setLogged: React.Dispatch<SetStateAction<boolean>> }> = ({ setLogged }) => {
 
     const onFinish = (values: any) => {
-        if (values.username === process.env.NEXT_PUBLIC_ADMIN_USERNAME && values.password == process.env.NEXT_PUBLIC_ADMIN_PASSWORD) {
+        if (values.username === USERNAME && values.password == PASSWORD) {
             setLogged(true)
         }
     }

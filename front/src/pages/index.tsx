@@ -7,12 +7,14 @@ import Link from "next/link"
 import { useEffect, useState } from "react"
 import styled from "styled-components"
 
+const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL
+
 const Home = () => {
 
   const [projects, setProjects] = useState<projectType[]>([])
 
   const getProjects = async () => {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/project`)
+    const res = await fetch(`${BACKEND_URL}/project`)
     const datas = await res.json()
     setProjects(datas.filter((data: projectType) => data.isPublished ?? data))
   }
@@ -41,7 +43,7 @@ const Home = () => {
                 <Link href={`/gallery/${project.name}`}>
                   <StyledCard
                     hoverable
-                    cover={<img alt="example" src={`${process.env.NEXT_PUBLIC_BACKEND_URL}/${project.images[0].imagePath}`} />}
+                    cover={<img alt="example" src={`${BACKEND_URL}/${project.images[0].imagePath}`} />}
                   >
                     <StyledCardMeta title={project.name.toUpperCase()} />
                   </StyledCard>

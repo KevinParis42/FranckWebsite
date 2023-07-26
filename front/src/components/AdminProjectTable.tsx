@@ -5,12 +5,15 @@ import type { ColumnsType } from 'antd/es/table';
 import React, { SetStateAction } from 'react';
 
 
+const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL
+
+
 const AdminProjectTable: React.FC<{ projects: projectType[], setProjects: React.Dispatch<SetStateAction<projectType[]>> }> = ({ projects, setProjects }) => {
 
 
 
     const deleteProject = (deletedProject: projectType) => {
-        fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/project/${deletedProject.id}`, { method: 'DELETE' })
+        fetch(`${BACKEND_URL}/project/${deletedProject.id}`, { method: 'DELETE' })
         setProjects(projects.filter((project: projectType) => project.id !== deletedProject.id))
     }
 
@@ -20,7 +23,7 @@ const AdminProjectTable: React.FC<{ projects: projectType[], setProjects: React.
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
             body: new URLSearchParams({ isPublished: String(!updateProject.isPublished) })
         }
-        fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/project/${updateProject.id}`, options)
+        fetch(`${BACKEND_URL}/project/${updateProject.id}`, options)
         console.log(projects.map(project => project.id === updateProject.id ? { ...updateProject, isPublished: !updateProject.isPublished } : project))
         setProjects(projects.map(project => project.id === updateProject.id ? { ...updateProject, isPublished: !updateProject.isPublished } : project))
     }

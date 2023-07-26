@@ -1,11 +1,13 @@
 import { Spin } from 'antd';
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import styled from 'styled-components';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { MTLLoader } from 'three/examples/jsm/loaders/MTLLoader';
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader';
+
+const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL
 
 
 const CanvasContainer: React.FC<{ projectName: string }> = ({ projectName }) => {
@@ -34,12 +36,12 @@ const CanvasContainer: React.FC<{ projectName: string }> = ({ projectName }) => 
         controls.enableDamping = true
 
         const mtlLoader = new MTLLoader()
-        mtlLoader.load(`${process.env.NEXT_PUBLIC_BACKEND_URL}/${projectName}.mtl`,
+        mtlLoader.load(`${BACKEND_URL}/${projectName}.mtl`,
             (materials) => {
                 materials.preload()
                 const loader = new OBJLoader()
                 loader.setMaterials(materials)
-                loader.load(`${process.env.NEXT_PUBLIC_BACKEND_URL}/${projectName}.obj`,
+                loader.load(`${BACKEND_URL}/${projectName}.obj`,
                     (object) => {
                         scene.add(object)
                     }, (xhr) => {
@@ -84,7 +86,7 @@ const CanvasContainer: React.FC<{ projectName: string }> = ({ projectName }) => 
     }
 
 
-    useMemo(() => {
+    useEffect(() => {
         loadScene()
     }, [sceneRef.current])
 

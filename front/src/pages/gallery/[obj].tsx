@@ -5,11 +5,13 @@ import { projectType } from '@/types';
 import type { GetStaticProps, InferGetStaticPropsType } from 'next';
 import styled from 'styled-components';
 
+const BACKEND_URL = process.env.BACKEND_URL
+
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   if (params && params.obj) {
     const queryName = typeof (params.obj) === "object" ? params.obj[0] : params.obj
 
-    const res = await fetch(`${process.env.BACKEND_URL}/project/${queryName}`)
+    const res = await fetch(`${BACKEND_URL}/project/${queryName}`)
     const data = await res.json()
 
     return {
@@ -27,7 +29,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
 export async function getStaticPaths() {
 
-  const res = await fetch(`${process.env.BACKEND_URL}/project`)
+  const res = await fetch(`${BACKEND_URL}/project`)
   const data = await res.json()
 
   const paths = data.map((project: projectType) => { return { params: { obj: project.name } } })
