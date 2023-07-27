@@ -1,4 +1,4 @@
-import PageLayout from "@/components/PageLayout"
+import PageLayout from "@/containers/PageLayout"
 import { NextPage } from "next"
 
 

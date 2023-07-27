@@ -1,6 +1,6 @@
 import CarouselContainer from "@/components/Carousel";
 import ObjViewer from "@/components/ObjViewer";
-import PageLayout from "@/components/PageLayout";
+import PageLayout from "@/containers/PageLayout";
 import { projectType } from '@/types';
 import type { GetStaticProps, InferGetStaticPropsType } from 'next';
 import styled from 'styled-components';

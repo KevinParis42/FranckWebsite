@@ -31,7 +31,7 @@ const PageLayout: React.FC<PropsType> = ({ children }) => {
 
         <LayoutContainer>
             <MenuContainer>
-                <Image src={"/name_header.png"} alt="Franck Courtat" width={50} height={50} />
+                <Image src={"/name_header.png"} alt="Franck Courtat" width={50} height={50} style={{ margin: '5px 15px' }} />
                 {/* <NavBar
                     items={items}
                     theme='light'

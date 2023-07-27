@@ -1,4 +1,4 @@
-import PageLayout from "@/components/PageLayout"
+import PageLayout from "@/containers/PageLayout"
 import { devices } from "@/sizes"
 import { projectType } from "@/types"
 import { Card } from "antd"
@@ -26,11 +26,9 @@ const Home = () => {
 
   return (
     <PageLayout>
-      <br />
       <HeroDiv>
         <HeroImg src={'/title.png'} alt="infographiste" width={0} height={0} sizes="100vw" />
       </HeroDiv>
-      <br />
       <GalleryDiv>
         <TitleDiv>
           <GalleryTitle>GALLERIE 3D</GalleryTitle>
@@ -53,7 +51,6 @@ const Home = () => {
           }
         </div>
       </GalleryDiv>
-      <br />
 
     </PageLayout>
   )
@@ -67,6 +64,7 @@ const HeroDiv = styled.div`
   justify-content: center;
   align-items: center;
   width: 100%;
+  margin: 2vh 0;
   background-image: url('/form.png');
   background-repeat: repeat;
   background-size: 100% 100%;
@@ -89,13 +87,12 @@ const HeroImg = styled(Image)`
 `
 
 const GalleryDiv = styled.div`
-  min-height: 60vh;
+  /* min-height: 60vh; */
   min-width: 250px;
-  margin-left: 4vw;
-  margin-right: 4vw;
+  margin: 2vh 4vw;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: flex-start;
   align-items: center;
   border: 1px solid black;
   border-radius: 20px;
@@ -123,6 +120,7 @@ const GalleryTitle = styled.h2`
 
 const ProjectGrid = styled.div`
   display: flex;
+  margin: 4vh 0;
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
