@@ -1,8 +1,8 @@
-import { projectType } from '@/types';
-import DeleteOutlined from '@ant-design/icons/lib/icons/DeleteOutlined';
-import { Button, Checkbox, Table } from 'antd';
-import type { ColumnsType } from 'antd/es/table';
-import React, { SetStateAction } from 'react';
+import { projectType } from '@/types'
+import DeleteOutlined from '@ant-design/icons/lib/icons/DeleteOutlined'
+import { Button, Checkbox, Table } from 'antd'
+import type { ColumnsType } from 'antd/es/table'
+import React, { SetStateAction } from 'react'
 
 
 const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL

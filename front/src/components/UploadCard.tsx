@@ -46,7 +46,7 @@ const UploadCard: React.FC<{ projects: projectType[], setProjects: React.Dispatc
         const options = {
             method: 'POST',
             body: form
-        };
+        }
 
         const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/project`, options)
         if (res.status === 200) {

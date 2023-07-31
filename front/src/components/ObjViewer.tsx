@@ -1,6 +1,6 @@
 
-import styled from 'styled-components';
-import CanvasContainer from '../containers/CanvasContainer';
+import styled from 'styled-components'
+import CanvasContainer from '../containers/CanvasContainer'
 
 const ObjViewer: React.FC<{ projectName: string }> = ({ projectName }) => {
 

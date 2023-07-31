@@ -1,11 +1,11 @@
-import { Spin } from 'antd';
-import React, { useEffect, useRef, useState } from 'react';
-import { useResizeDetector } from 'react-resize-detector';
-import styled from 'styled-components';
-import * as THREE from 'three';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
-import { MTLLoader } from 'three/examples/jsm/loaders/MTLLoader';
-import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader';
+import { Spin } from 'antd'
+import React, { useEffect, useRef, useState } from 'react'
+import { useResizeDetector } from 'react-resize-detector'
+import styled from 'styled-components'
+import * as THREE from 'three'
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
+import { MTLLoader } from 'three/examples/jsm/loaders/MTLLoader'
+import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader'
 
 const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL
 
@@ -15,7 +15,7 @@ const CanvasContainer: React.FC<{ projectName: string }> = ({ projectName }) => 
     const sceneRef = useRef<HTMLInputElement>(null)
     const [renderer, setRenderer] = useState<THREE.WebGLRenderer>()
     const [cameraState, setCameraState] = useState<THREE.PerspectiveCamera>()
-    const { width, height, ref: sizeref } = useResizeDetector();
+    const { width, height, ref: sizeref } = useResizeDetector()
     const [loaded, setLoaded] = useState(false)
 
 
@@ -23,12 +23,12 @@ const CanvasContainer: React.FC<{ projectName: string }> = ({ projectName }) => 
         if (!sceneRef.current)
             return
         const scene = new THREE.Scene()
-        const camera = new THREE.PerspectiveCamera();
+        const camera = new THREE.PerspectiveCamera()
         setCameraState(camera)
         camera.position.x = -10
         camera.position.z = 10
         camera.position.y = 5
-        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        const renderer = new THREE.WebGLRenderer({ antialias: true })
         setRenderer(renderer)
         renderer.setSize(sceneRef.current.clientWidth, sceneRef.current.clientHeight)
 
@@ -66,10 +66,10 @@ const CanvasContainer: React.FC<{ projectName: string }> = ({ projectName }) => 
         const ambiantLight = new THREE.AmbientLight('white', 1)
         scene.add(ambiantLight)
 
-        renderer.setClearColor(0xffffff, 0.3);
+        renderer.setClearColor(0xffffff, 0.3)
 
 
-        camera.position.z = 2;
+        camera.position.z = 2
 
         sceneRef.current.appendChild(renderer.domElement)
         animate()

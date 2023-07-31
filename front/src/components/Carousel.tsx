@@ -1,6 +1,6 @@
-import { Carousel, Image } from 'antd';
-import React from 'react';
-import styled from 'styled-components';
+import { Carousel, Image } from 'antd'
+import React from 'react'
+import styled from 'styled-components'
 
 const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL
 
@@ -17,7 +17,7 @@ const contentStyle: React.CSSProperties = {
     height: '300px',
     color: '#fff',
     textAlign: 'center',
-};
+}
 
 const CarouselContainer: React.FC<{ images: imageType[] }> = ({ images }) => (
     <CarouselStyledDiv id='carousel-container'>
@@ -34,7 +34,7 @@ const CarouselContainer: React.FC<{ images: imageType[] }> = ({ images }) => (
 )
 
 const CarouselStyledDiv = styled.div`
-    width: 90%;
+    width: 90%
 `
 
-export default CarouselContainer;
+export default CarouselContainer

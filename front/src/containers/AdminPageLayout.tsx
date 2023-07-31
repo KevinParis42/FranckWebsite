@@ -1,9 +1,9 @@
-import React from 'react';
-import styled from 'styled-components';
-import { Layout } from 'antd';
-import Link from 'next/link';
+import React from 'react'
+import styled from 'styled-components'
+import { Layout } from 'antd'
+import Link from 'next/link'
 
-const { Header, Content, Footer, Sider } = Layout;
+const { Header, Content, Footer, Sider } = Layout
 
 type PropsType = {
     children: JSX.Element | JSX.Element[]
@@ -18,8 +18,8 @@ const AdminPageLayout: React.FC<PropsType> = ({ children }) => {
             <ContentContainer>{children}</ContentContainer>
             <Footer>Kévin PARIS</Footer>
         </LayoutContainer>
-    );
-};
+    )
+}
 
 const LayoutContainer = styled(Layout)`
     display: flex;

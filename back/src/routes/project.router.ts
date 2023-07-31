@@ -1,7 +1,7 @@
-import express from "express";
-import multer from "multer";
-import ProjectController from "../controllers/project.controller";
-const upload = multer({ dest: 'uploads/' });
+import express from "express"
+import multer from "multer"
+import ProjectController from "../controllers/project.controller"
+const upload = multer({ dest: 'uploads/' })
 const router = express.Router()
 
 router.get('/', ProjectController.getAll)

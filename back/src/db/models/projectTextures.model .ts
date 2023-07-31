@@ -1,23 +1,23 @@
-import { BelongsTo, Column, ForeignKey, Model, Table } from 'sequelize-typescript';
-import Project from './project.model';
+import { BelongsTo, Column, ForeignKey, Model, Table } from 'sequelize-typescript'
+import Project from './project.model'
 
 @Table
 export default class ProjectTextures extends Model {
     @Column
-    name: string;
+    name: string
 
     @Column
-    texturePath: string;
+    texturePath: string
 
     @ForeignKey(() => Project)
     @Column
-    projectId: number;
+    projectId: number
 
     @BelongsTo(() => Project, {
         onUpdate: "CASCADE",
         onDelete: "CASCADE",
         hooks: true
     })
-    project: Project;
+    project: Project
 }
 

@@ -1,9 +1,9 @@
-import CarouselContainer from "@/components/Carousel";
-import ObjViewer from "@/components/ObjViewer";
-import PageLayout from "@/containers/PageLayout";
-import { projectType } from '@/types';
-import type { GetStaticProps, InferGetStaticPropsType } from 'next';
-import styled from 'styled-components';
+import CarouselContainer from "@/components/Carousel"
+import ObjViewer from "@/components/ObjViewer"
+import PageLayout from "@/containers/PageLayout"
+import { projectType } from '@/types'
+import type { GetStaticProps, InferGetStaticPropsType } from 'next'
+import styled from 'styled-components'
 
 const BACKEND_URL = process.env.BACKEND_URL
 
@@ -32,7 +32,11 @@ export async function getStaticPaths() {
   const res = await fetch(`${BACKEND_URL}/project`)
   const data = await res.json()
 
-  const paths = data.map((project: projectType) => { return { params: { obj: project.name } } })
+  const paths = data.map((project: projectType) => {
+    return {
+      params: { obj: project.name }
+    }
+  })
 
   return {
     paths: paths,
@@ -49,12 +53,6 @@ function ObjPage({ obj, images }: InferGetStaticPropsType<typeof getStaticProps>
       <ObjPageContainer>
         <HeaderContainer>
           <h1>{obj.toUpperCase()}</h1>
-          {/* <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde eius quisquam tenetur delectus nemo ullam aut, iusto quo dolorum reprehenderit dicta ipsam iure quod quasi totam vitae doloribus voluptates pariatur!</p>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde eius quisquam tenetur delectus nemo ullam aut, iusto quo dolorum reprehenderit dicta ipsam iure quod quasi totam vitae doloribus voluptates pariatur!</p>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde eius quisquam tenetur delectus nemo ullam aut, iusto quo dolorum reprehenderit dicta ipsam iure quod quasi totam vitae doloribus voluptates pariatur!</p>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde eius quisquam tenetur delectus nemo ullam aut, iusto quo dolorum reprehenderit dicta ipsam iure quod quasi totam vitae doloribus voluptates pariatur!</p>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde eius quisquam tenetur delectus nemo ullam aut, iusto quo dolorum reprehenderit dicta ipsam iure quod quasi totam vitae doloribus voluptates pariatur!</p>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde eius quisquam tenetur delectus nemo ullam aut, iusto quo dolorum reprehenderit dicta ipsam iure quod quasi totam vitae doloribus voluptates pariatur!</p> */}
         </HeaderContainer>
         <br />
         <ObjViewer projectName={obj} />
@@ -75,6 +73,7 @@ const HeaderContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  font-family: 'ArcaneNine';
 `
 
 export default ObjPage

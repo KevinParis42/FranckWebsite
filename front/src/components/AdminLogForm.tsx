@@ -1,5 +1,5 @@
-import { Button, Form, Input } from 'antd';
-import React, { SetStateAction } from 'react';
+import { Button, Form, Input } from 'antd'
+import React, { SetStateAction } from 'react'
 
 const USERNAME = process.env.NEXT_PUBLIC_ADMIN_USERNAME
 const PASSWORD = process.env.NEXT_PUBLIC_ADMIN_PASSWORD
@@ -49,4 +49,4 @@ const AdminLogForm: React.FC<{ setLogged: React.Dispatch<SetStateAction<boolean>
     )
 }
 
-export default AdminLogForm;
+export default AdminLogForm

@@ -1,5 +1,5 @@
 import AdminLogForm from "@/components/AdminLogForm"
-import AdminPageLayout from "@/components/AdminPageLayout"
+import AdminPageLayout from "@/containers/AdminPageLayout"
 import AdminProjectTable from "@/components/AdminProjectTable"
 import UploadCard from "@/components/UploadCard"
 import { projectType } from "@/types"

@@ -1,25 +1,25 @@
-import { Column, Default, HasMany, Model, Table } from 'sequelize-typescript';
-import ProjectImages from './projectImages.model';
-import ProjectTextures from './projectTextures.model ';
+import { Column, Default, HasMany, Model, Table } from 'sequelize-typescript'
+import ProjectImages from './projectImages.model'
+import ProjectTextures from './projectTextures.model '
 
 @Table
 export default class Project extends Model {
     @Column
-    name: string;
+    name: string
 
     @Column
-    objPath: string;
+    objPath: string
 
     @Column
-    mtlPath: string;
+    mtlPath: string
 
     @HasMany(() => ProjectTextures)
-    textures: ProjectTextures[];
+    textures: ProjectTextures[]
 
     @HasMany(() => ProjectImages)
-    images: ProjectImages[];
+    images: ProjectImages[]
 
     @Default(true)
     @Column
-    isPublished: Boolean;
+    isPublished: Boolean
 }

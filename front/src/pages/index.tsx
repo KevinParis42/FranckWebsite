@@ -2,7 +2,6 @@ import PageLayout from "@/containers/PageLayout"
 import { devices } from "@/sizes"
 import { projectType } from "@/types"
 import { Card } from "antd"
-import Image from "next/image"
 import Link from "next/link"
 import { useEffect, useState } from "react"
 import styled from "styled-components"
@@ -26,9 +25,6 @@ const Home = () => {
 
   return (
     <PageLayout>
-      <HeroDiv>
-        <HeroImg src={'/title.png'} alt="infographiste" width={0} height={0} sizes="100vw" />
-      </HeroDiv>
       <GalleryDiv>
         <TitleDiv>
           <GalleryTitle>GALLERIE 3D</GalleryTitle>
@@ -58,33 +54,6 @@ const Home = () => {
 
 export default Home
 
-const HeroDiv = styled.div`
-  display: flex;
-  min-height: 12vh;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  margin: 2vh 0;
-  background-image: url('/form.png');
-  background-repeat: repeat;
-  background-size: 100% 100%;
-
-  @media ${devices.tablet} {
-    height: 10vh;
-  }
-`
-
-const HeroImg = styled(Image)`
-  min-width: 240px;
-  width: 50%;
-  height: auto;
-
-  @media ${devices.tablet} {
-    width: auto;
-    height: 100%;
-  }
-
-`
 
 const GalleryDiv = styled.div`
   /* min-height: 60vh; */

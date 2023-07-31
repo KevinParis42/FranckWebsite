@@ -1,7 +1,7 @@
-import * as fs from 'fs';
-import Project from "../db/models/project.model";
-import ProjectImages from "../db/models/projectImages.model";
-import ProjectTextures from "../db/models/projectTextures.model ";
+import * as fs from 'fs'
+import Project from "../db/models/project.model"
+import ProjectImages from "../db/models/projectImages.model"
+import ProjectTextures from "../db/models/projectTextures.model "
 
 type createBody = {
     isPublished: boolean,
@@ -18,7 +18,7 @@ type createBody = {
 
 export default class ProjectService {
 
-    static #transformFileArray = (files: Express.Multer.File[] | { [fieldname: string]: Express.Multer.File[]; }) => {
+    static #transformFileArray = (files: Express.Multer.File[] | { [fieldname: string]: Express.Multer.File[] }) => {
         return Array.isArray(files) ? files : undefined
     }
 
@@ -26,7 +26,7 @@ export default class ProjectService {
         return Project.findAll({ include: { all: true } })
     }
 
-    static create = async (body: createBody, files: Express.Multer.File[] | { [fieldname: string]: Express.Multer.File[]; }) => {
+    static create = async (body: createBody, files: Express.Multer.File[] | { [fieldname: string]: Express.Multer.File[] }) => {
         const fileArray = this.#transformFileArray(files)
         if (!fileArray)
             return
